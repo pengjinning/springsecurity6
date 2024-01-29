@@ -46,8 +46,9 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (null != authentication) {
+            // 
             SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
-
+            
             String jwt = Jwts.builder()
                     .issuer("Eazy Bank")
                     .subject("JWT Token")

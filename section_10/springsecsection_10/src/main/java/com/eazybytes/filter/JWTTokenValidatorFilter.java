@@ -2,7 +2,7 @@
  * @Author: jackning 270580156@qq.com
  * @Date: 2024-01-27 13:47:16
  * @LastEditors: jackning 270580156@qq.com
- * @LastEditTime: 2024-01-29 10:27:08
+ * @LastEditTime: 2024-01-29 10:39:15
  * @Description: bytedesk.com https://github.com/Bytedesk/bytedesk
  *   Please be aware of the BSL license restrictions before installing Bytedesk IM – 
  *  selling, reselling, or hosting Bytedesk IM as a service is a breach of the terms and automatically terminates your rights under the license. 
@@ -64,7 +64,6 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
             } catch (Exception e) {
                 throw new BadCredentialsException("Invalid Token received!");
             }
-
         }
         filterChain.doFilter(request, response);
     }
