@@ -2,9 +2,9 @@ create database eazybank;
 
 use eazybank;
 
-drop table `users`;
-drop table `authorities`;
-drop table `customer`;
+-- drop table `users`;
+-- drop table `authorities`;
+-- drop table `customer`;
 
 CREATE TABLE `customer` (
   `customer_id` int NOT NULL AUTO_INCREMENT,
