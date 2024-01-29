@@ -2,7 +2,7 @@
  * @Author: jackning 270580156@qq.com
  * @Date: 2024-01-27 13:47:16
  * @LastEditors: jackning 270580156@qq.com
- * @LastEditTime: 2024-01-29 09:59:02
+ * @LastEditTime: 2024-01-29 10:17:14
  * @Description: bytedesk.com https://github.com/Bytedesk/bytedesk
  *   Please be aware of the BSL license restrictions before installing Bytedesk IM – 
  *  selling, reselling, or hosting Bytedesk IM as a service is a breach of the terms and automatically terminates your rights under the license. 
@@ -45,13 +45,19 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (null != authentication) {
+            // 
             SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
-            String jwt = Jwts.builder().issuer("Eazy Bank").subject("JWT Token")
+            // 
+            String jwt = Jwts.builder()
+                    .issuer("Eazy Bank")
+                    .subject("JWT Token")
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .issuedAt(new Date())
                     .expiration(new Date((new Date()).getTime() + 30000000))
-                    .signWith(key).compact();
+                    .signWith(key)
+                    .compact();
+            // 
             response.setHeader(SecurityConstants.JWT_HEADER, jwt);
         }
 

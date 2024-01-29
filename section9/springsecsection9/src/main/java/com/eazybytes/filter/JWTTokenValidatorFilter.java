@@ -28,21 +28,25 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+        // 
         String jwt = request.getHeader(SecurityConstants.JWT_HEADER);
         if (null != jwt) {
             try {
                 SecretKey key = Keys.hmacShaKeyFor(
                         SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
-
+                // 
                 Claims claims = Jwts.parser()
                         .decryptWith(key)
                         .build()
                         .parseSignedClaims(jwt)
                         .getPayload();
+                // 
                 String username = String.valueOf(claims.get("username"));
                 String authorities = (String) claims.get("authorities");
+                // 
                 Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
                         AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
+                // 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
                 throw new BadCredentialsException("Invalid Token received!");
